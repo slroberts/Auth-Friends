@@ -26,15 +26,6 @@ const Login = (props) => {
 
         setIsLoading(true);
 
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-
-        setLogin({
-          username: "",
-          password: "",
-        });
-
         props.history.push("/friends");
       })
       .catch((err) => {
