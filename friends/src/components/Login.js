@@ -7,8 +7,6 @@ const Login = (props) => {
     password: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleChange = (e) => {
     setLogin({
       ...login,
@@ -18,19 +16,18 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     axiosWithAuth()
-      .post("/login", login)
+      .post("/api/login", login)
       .then((res) => {
         console.log("SR: login success: res: ", res);
-        localStorage.setItem("authToken", res.data.payload);
-
-        setIsLoading(true);
+        localStorage.setItem("token", res.data.payload);
 
         props.history.push("/friends");
       })
       .catch((err) => {
         console.error("SR: login failed: err: ", err.message);
-        localStorage.removeItem("authToken");
+        localStorage.removeItem("token");
       });
   };
 
@@ -52,7 +49,7 @@ const Login = (props) => {
           value={login.password}
           onChange={handleChange}
         />
-        <button>{isLoading ? <p>...Loading</p> : <p>Log in</p>}</button>
+        <button>Log in</button>
       </form>
     </>
   );
